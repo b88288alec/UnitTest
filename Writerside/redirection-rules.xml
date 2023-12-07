@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rules SYSTEM "https://resources.jetbrains.com/writerside/1.0/redirection-rules.dtd">
+<rules>
+    <!-- format is as follows
+    <rule id="<unique id>">
+        <accepts>page.html</accepts>
+    </rule>
+    -->
+    <rule id="5c6b33f2">
+        <description>Created after removal of "什麼是 Unit Teat" from 單元測試</description>
+        <accepts>What-is-Unit-Teat.html</accepts>
+    </rule>
+    <rule id="7379a5d7">
+        <description>Created after removal of "測 API" from 單元測試</description>
+        <accepts>測-API.html</accepts>
+    </rule>
+    <rule id="5d67f019">
+        <description>Created after removal of "測行為" from 單元測試</description>
+        <accepts>測行為.html</accepts>
+    </rule>
+    <rule id="28efd338">
+        <description>Created after removal of "測資料" from 單元測試</description>
+        <accepts>測資料.html</accepts>
+    </rule>
+</rules>

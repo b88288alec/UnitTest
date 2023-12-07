@@ -1,0 +1,59 @@
+# 為什麼要 Unit Teat
+
+1. 減輕 QA 壓力<br/>
+   假如一輪 Sprint 可以開發 10 個功能，那 QA 在第一輪 Sprint 也應該要測試 10 個功能，如果開發團隊在第二輪的 Sprint
+   也穩定輸出，那麼 QA 在第二輪結束後會需要測試幾個功能？<br/>
+   正常直覺是 10 個功能，然而現實是還必須要加上回歸測試，所以實際上是要測 20 個功能，而且隨著專案開發這數字會一直成長。
+2. 安全重構<br/>
+   日常開發一定會遇到某功能出現問題被開了 Bug
+   單，然而這功能當初開發時可能迫於時間或對領域知識理解不全，導致程式並沒有明確地展現需求意圖，幸運的是到了專案後期，時間比較也充裕了，我們有了很多時間可以來重構這些毫無組織的程式碼，於是找了
+   SA、PM 討論要實行這項計畫，但往往都會被潑了一桶冷水，理由是因為 User
+   已經測試完了，不可能再多花時間把該功能從頭再測一次。<br/>
+   但是如果我們把單元測試融入到日常開發，因為有測試程式保護，所以我們可以很快地知道重構後的程式是不是可以達到預期的結果，也可以增加重構的信心。
+3. 補充說明程式意圖<br/>
+   參考一個簡單的小程式
+   ```Java
+   Class Paint {
+     private Integer vol;
+     private Integer r;
+     private Integer y;
+     private Integer b;
+   
+     public void pain(Paint pain) {
+       this.vol = this.vol + pain.getVol();
+     }
+   }
+   ```
+
+4. 提升發佈品質<br/>
+   單元測試可以整合到 CI/CD
+   達到自動化測試，每次的版本發佈都必須跑過所有的單元測試，如果有任何一個測試失敗，程式也就無法編譯，順利打包出``jar``
+   或``war``，藉此確保程式品質。
+
+## 什麼是 Unit Teat
+
+### 單元測試 VS 整合測試
+
+![測試金字塔](TestPyramid.png)
+
+### 單元測試的三大定義
+
+Martin Fowler 對單元測試整理出三點基本定義
+
+1. 單元測試應開要是低層次的
+2. 單元測試通常是用一些測試工具或框架撰寫(如 Junit)
+3. 單元測試執行的速度要比其他類型的測試快(如整合測試)
+
+> 原文如下：<br/>
+> Firstly there is a notion that unit tests are low-level, focusing on a small part of the software system. Secondly unit
+> tests are usually written these days by the programmers themselves using their regular tools - the only difference being
+> the use of some sort of unit testing framework. Thirdly unit tests are expected to be significantly faster than other
+> kinds of tests.
+
+<seealso>
+   <category ref="why">
+      <a href="https://martinfowler.com/bliki/UnitTest.html">UnitTest</a>
+      <a href="https://martinfowler.com/bliki/TestPyramid.html">TestPyramid</a>
+      <a href="https://martinfowler.com/articles/practical-test-pyramid.html">The Practical Test Pyramid</a>
+   </category>
+</seealso>
