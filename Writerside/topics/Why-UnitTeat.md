@@ -36,17 +36,27 @@
 
 ![測試金字塔](TestPyramid.png)
 
+簡單定義，只要被測試對象情境會誇越邊界或涉及 I/O，就是整合測試，例如測試的過程需要呼叫 REST API 到其它外部系統以取得資料來做計算。
+只要牽涉到誇越邊界就是一種不確定性，誰會知道現在呼叫的 REST API 會不會在下個月改規格，或者突然改用 MQ
+介接，所以在撰寫單元測試程式就勢必多花心力去處理外部依賴，也就會增加測試成本。
+
+> 上面的圖是「測試金字塔」最早由 Mike Cohn 提出，主要在說靠近金字塔底部為低層次，越往上就是高層次，通常越高層次的測試都會需要依賴於其它東西，可能是資料庫、外部系統、UI
+> 畫面，而這種測試需要花費的成本較高，因為通常都只能夠由人工來確認正確性。而低層次所涵蓋的通常都是領域的業務邏輯，像是計算某間公司在當季度的營收，這類不需要考慮外在不確定性的測試(
+> 不需要伸手去別人家要資料)，在撰寫測試程式上相對較為容易，且每次執行測試所花費的時間也較少。
+
 ### 單元測試的三大定義
 
 Martin Fowler 對單元測試整理出三點基本定義
 
-1. 單元測試應開要是低層次的
+1. 單元測試應開要是低層次的(不誇越邊界)
 2. 單元測試通常是用一些測試工具或框架撰寫(如 Junit)
 3. 單元測試執行的速度要比其他類型的測試快(如整合測試)
 
 > 原文如下：<br/>
-> Firstly there is a notion that unit tests are low-level, focusing on a small part of the software system. Secondly unit
-> tests are usually written these days by the programmers themselves using their regular tools - the only difference being
+> Firstly there is a notion that unit tests are low-level, focusing on a small part of the software system. Secondly
+> unit
+> tests are usually written these days by the programmers themselves using their regular tools - the only difference
+> being
 > the use of some sort of unit testing framework. Thirdly unit tests are expected to be significantly faster than other
 > kinds of tests.
 
