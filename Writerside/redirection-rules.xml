@@ -22,4 +22,8 @@
         <description>Created after removal of "測資料" from 單元測試</description>
         <accepts>測資料.html</accepts>
     </rule>
+    <rule id="2e73669f">
+        <description>Created after removal of "外部依賴" from 單元測試</description>
+        <accepts>外部依賴.html</accepts>
+    </rule>
 </rules>
