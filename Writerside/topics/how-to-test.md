@@ -65,7 +65,7 @@ public class Transfer {
 instance，但這裡的 `LocalDate.now()` 是 static 方法，static 屬性的方法是在 JVM 啟動時就初始化完了，使用它也不需要先 new 它，該怎麼辦？<br/>
 
 有兩種方法可以解決這個問題
-1. 不要在方法內使用`LocalDate.now()`，改成用參數輸入還解耦
+1. 不要在方法內使用`LocalDate.now()`，改成用參數輸入來解耦
 2. 使用 Mockito 在`3.4.0`後推出的`mockStatic`
 
 ```Java

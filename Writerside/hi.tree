@@ -4,9 +4,8 @@
 
 <instance-profile id="hi"
                  name="單元測試"
-                 start-page="Default-topic.md">
+                 start-page="Why-UnitTeat.md">
 
-    <toc-element topic="Default-topic.md"/>
     <toc-element topic="Why-UnitTeat.md"/>
     <toc-element topic="the-first-unit-test.md"/>
     <toc-element topic="how-to-test.md">

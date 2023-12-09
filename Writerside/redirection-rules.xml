@@ -26,4 +26,8 @@
         <description>Created after removal of "外部依賴" from 單元測試</description>
         <accepts>外部依賴.html</accepts>
     </rule>
+    <rule id="714c1139">
+        <description>Created after removal of "This is the first topic" from 單元測試</description>
+        <accepts>Default-topic.html</accepts>
+    </rule>
 </rules>
