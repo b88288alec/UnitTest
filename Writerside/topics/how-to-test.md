@@ -127,7 +127,7 @@ public class OrderFactoryTest {
    @MockBean
    private StockService stockService;
 
-   @Teat
+   @Test
    @DisplayName("下新訂單(有庫存)")
    void createHasStock() {
       this.mock_isPossibleOrder(true);
@@ -139,7 +139,7 @@ public class OrderFactoryTest {
       Mockito.verify(stockService, Mockito.times(1)).decrease(product.getProductId(), 10);
    }
    
-   @Teat
+   @Test
    @DisplayName("下新訂單(沒庫存)")
    void createOutOfStock() {
       this.mock_isPossibleOrder(false);
@@ -148,7 +148,7 @@ public class OrderFactoryTest {
       try {
          Order order = orderFactory.create(product, 10);
       } catch (OutOfStockException e) {
-         assertThat(e).hasMessageContaining("The product id " + product.getProductId() + " is out of stock");
+         assertThat(e).hasMessageContaining("out of stock");
       }
       
       Mockito.verify(orderRepository, Mockito.never()).save(order);
