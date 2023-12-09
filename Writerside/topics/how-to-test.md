@@ -85,11 +85,8 @@ Mockito.mockStatic(LocalDate.class).when(LocalDate::now).thenReturn(expected);
 來檢驗有沒有達到預期效果。<br/>
 而 Command 就是叫某個物件去做點事情，像是呼叫 Dao 把資料存到資料庫，這類的行為通常都不會有回傳值，既然沒回傳值，那怎麼知道程式跑得對不對呢？
 
-接著我們先把前面的`OrderFactory`功能補齊，把下新訂單的功能給補上
+在解釋怎麼測試前，先把前面的`OrderFactory`功能補齊，把下新訂單的功能給補上
 ```Java
-import com.example.Order;
-import com.example.OrderRepository;
-
 @RequiredArgsConstructor
 public class OrderFactory {
 
@@ -107,13 +104,61 @@ public class OrderFactory {
             // 訂單成立
             Order order = new Order(product, quantity);
             orderRepository.save(order);
-            // 庫存數量扣除訂購數量
+            // 扣除庫存數量
             stockService.decrease(product.getProductId(), quantity);
+            return order;
         } else {
             // 沒庫存拋錯誤
-            throw new OutOfStockException();
+            throw new OutOfStockException("The product id " + product.getProductId() + " is out of stock");
         }
     }
+}
+```
+接著寫測試程式
+```Java
+@ExtendWith(SpringExtension.class)
+@SpringBootTest(classes = RestApplication.class)
+public class OrderFactoryTest {
+
+   @Autowired
+   private OrderFactory orderFactory;
+   @MockBean
+   private OrderRepository orderRepository;
+   @MockBean
+   private StockService stockService;
+
+   @Teat
+   @DisplayName("下新訂單(有庫存)")
+   void createHasStock() {
+      this.mock_isPossibleOrder(true);
+      
+      Product product = new Product(20);
+      Order order = orderFactory.create(product, 10);
+      
+      Mockito.verify(orderRepository, Mockito.times(1)).save(order);
+      Mockito.verify(stockService, Mockito.times(1)).decrease(product.getProductId(), 10);
+   }
+   
+   @Teat
+   @DisplayName("下新訂單(沒庫存)")
+   void createOutOfStock() {
+      this.mock_isPossibleOrder(false);
+      
+      Product product = new Product(20);
+      try {
+         Order order = orderFactory.create(product, 10);
+      } catch (OutOfStockException e) {
+         assertThat(e).hasMessageContaining("The product id " + product.getProductId() + " is out of stock");
+      }
+      
+      Mockito.verify(orderRepository, Mockito.never()).save(order);
+   }
+   
+   private void mock_isPossibleOrder(boolean isPossibleOrder) {
+      Mockito.when(stockService.isPossibleOrder(Mockito.any(), Mockito.any()))
+      .thenReturn(isPossibleOrder);
+   }
+   
 }
 ```
 
