@@ -85,7 +85,7 @@ Mockito.mockStatic(LocalDate.class).when(LocalDate::now).thenReturn(expected);
 來檢驗有沒有達到預期效果。<br/>
 而 Command 就是叫某個物件去做點事情，像是呼叫 Dao 把資料存到資料庫，這類的行為通常都不會有回傳值，既然沒回傳值，那怎麼知道程式跑得對不對呢？
 
-接著我們先把前面的`OrderFactory`功能補齊，把下心訂單的功能給補上
+接著我們先把前面的`OrderFactory`功能補齊，把下新訂單的功能給補上
 ```Java
 import com.example.Order;
 import com.example.OrderRepository;
