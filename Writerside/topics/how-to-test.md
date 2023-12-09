@@ -39,7 +39,19 @@ public class OrderFactoryTest {
 透過上面的這些操作，就可以把`OrderFactory`與真實的`OrderRepository`給解耦，讓我們的測試可以順利執行。
 
 ## 依賴於時間
-
+假設我們要追蹤一的訂單的付款時間有沒有到期，因此新增了一個`Payment`物件如下
+```Java
+public class Payment {
+    private Integer ordeId;
+    private LocalDate deadLine;
+    
+    public boolean isOverdue() {
+        LocalDate now = LocalDate.now();
+        return now.isAfter(this.deadLine);
+    }
+}
+```
+接著我們想要測試超出付款期限的情境，也就是`now`要在`deadLine`之後
 ## 測查詢/資料
 
 ## 測行為
