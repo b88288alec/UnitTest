@@ -2,6 +2,6 @@
 <!DOCTYPE categories
         SYSTEM "https://resources.jetbrains.com/writerside/1.0/categories.dtd">
 <categories>
-    <category id="wrs" name="Writerside documentation" order="1"/>
-    <category id="why" name="Martin Fowler Blog 文章" order="2"/>
+    <category id="why" name="Martin Fowler Blog 文章" order="1"/>
+    <category id="TestDouble" name="Test Double" order="2"/>
 </categories>

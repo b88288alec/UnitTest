@@ -62,9 +62,11 @@ public class Transfer {
 
 接著我們想要測試不可測試的情境。 恩...要怎麼測？<br/>
 如果跑測試的時間是在上午 9 點的話，那不就測不了，再說前面使用 Mockito 的範例都是替換一個已經被 new 出來的
-instance，但這裡的 `LocalDate.now()` 是 static 方法，static 屬性的方法是在 JVM 啟動時就初始化完了，使用它也不需要先 new 它，該怎麼辦？<br/>
+instance，但這裡的 `LocalDate.now()` 是 static 方法，static 屬性的方法是在 JVM 啟動時就初始化完了，使用它也不需要先 new
+它，該怎麼辦？<br/>
 
 有兩種方法可以解決這個問題
+
 1. 不要在方法內使用`LocalDate.now()`，改成用參數輸入來解耦
 2. 使用 Mockito 在`3.4.0`後推出的`mockStatic`
 
@@ -72,14 +74,22 @@ instance，但這裡的 `LocalDate.now()` 是 static 方法，static 屬性的�
 LocalDate expected = LocalDate.of(2029, 12, 31);
 Mockito.mockStatic(LocalDate.class).when(LocalDate::now).thenReturn(expected);
 ```
+
 這樣我們的測試就可以在任何時間執行了。
-## 測查詢/資料
 
 ## 測行為
 
-## 測 API
+日常開發不外乎是打隻 API 查點資料，或是做點計算再把資料存到資料庫，也就是 Query 和 Command，所謂的 Query
+就是向某個物件要東西，像是前面範例用`OrderRepository`去資料庫查詢或是用`StudentScore`的`getAverage`
+方法算出平均成績也算是查詢，而這種行為的測試很容易可以驗證其正確性，因為它總是會回傳資料回來，只要有回傳就可以透過`assert`
+來檢驗有沒有達到預期效果。<br/>
+而 Command 就是叫某個物件去做點事情，像是呼叫 Dao 把資料存到資料庫，這類的行為通常都不會有回傳值，既然沒回傳值，那怎麼知道程式跑得對不對呢？
 
 ## Test Double
 
-https://martinfowler.com/bliki/TestDouble.html
-https://yu-jack.github.io/2020/10/12/unit-test-best-practice-part-5/
+<seealso>
+   <category ref="TestDouble">
+      <a href="https://martinfowler.com/bliki/TestDouble.html">Test Double from Martin Fowler</a>
+      <a href="https://yu-jack.github.io/2020/10/12/unit-test-best-practice-part-5/">如何有效使用 Test Double</a>
+   </category>
+</seealso>
