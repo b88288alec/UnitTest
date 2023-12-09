@@ -85,6 +85,35 @@ Mockito.mockStatic(LocalDate.class).when(LocalDate::now).thenReturn(expected);
 來檢驗有沒有達到預期效果。<br/>
 而 Command 就是叫某個物件去做點事情，像是呼叫 Dao 把資料存到資料庫，這類的行為通常都不會有回傳值，既然沒回傳值，那怎麼知道程式跑得對不對呢？
 
+讓我們再來看看前面的`OrderFactory`，先前已經先實作了`reconstruction`方法，可以從資料庫把資料查回來並重建`Order`
+物件，現在我們再加上`create`方法，
+```Java
+import com.example.Order;
+import com.example.OrderRepository;
+
+@RequiredArgsConstructor
+public class OrderFactory {
+
+    private final OrderRepository orderRepository;
+    private final StockService stockService;
+    
+    public Order reconstruction(Long orderId) {
+        return orderRepository.findById(orderId);
+    }
+    
+    public Order create(Product product, int quantity) {
+        // 檢查產品是否還有庫存
+        int remaining = stockService.getRemain(product.getProductId);
+        if (remaining >= quantity) {
+            // 訂單成立
+            Order order = new Order(product, quantity);
+            orderRepository.save(order);
+            // 庫存數量扣除訂購數量
+        }
+    }
+}
+```
+
 ## Test Double
 
 <seealso>
