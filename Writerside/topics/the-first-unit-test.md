@@ -32,11 +32,21 @@ public StudentScoreTest {
 
 夠簡單吧，但是現實幾乎不可能有像``StudentScore``這種完全不依賴其它物件的類別。
 
+## 訂單系統範例
+在開始討論依賴問題前，先來描述一個訂單系統的使用情境，因為後面的章節會接連使用這個系統來當範例。<br/>
+1. 系統可以接受使用者下訂單
+2. 每個訂單在下訂前需檢查庫存的數量是否充足
+3. 若庫存充足，成立訂單，並且扣除庫存總數
+4. 若庫存不足，拋出錯誤訊息
+5. 可使用訂單編號查詢以成立的訂單
+
+下圖 Class diagram 可幫助我們了解物件間的關係
+TODO 補圖
+
 ## 外部依賴
 
-依賴即引用，也就是指某個類別需要另一個類別的幫助才能完成任務，說白話點就是有程式裡有出現``import``的關鍵字，如果用 UML
-來表示的話會像下圖
-如上圖 ``OrderFactory`` 需要使用 `OrderRepository` 來把已存入資料庫中的 `Order` 物件重新載入到記憶體，可以參考下面的程式碼
+依賴即引用，也就是指某個類別需要另一個類別的幫助才能完成任務，說白話點就是有程式裡有出現``import``的關鍵字。
+如先前提到的訂單系統 ``OrderFactory`` 需要使用 `OrderRepository` 來把已存入資料庫中的 `Order` 物件重新載入到記憶體或把新的`Order`寫入進資料庫，可以參考下面的程式碼
 
 ```Java
 import com.example.Order;
@@ -54,7 +64,7 @@ public class OrderFactory {
 ```
 
 以此處的範例，我們可以說``OrderFactory``需要依賴於`OrderRepository`。
-接著我們試寫測試程式
+接著我們試著寫測試程式
 
 ```Java
 public class OrderFactoryTest {
