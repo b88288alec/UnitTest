@@ -59,7 +59,8 @@ public class OrderFactory {
 ```Java
 public class OrderFactoryTest {
 
-    private final OrderFactory orderFactory;
+    @Autowired
+    private OrderFactory orderFactory;
 
     @Test
     void testReconstruction() {
