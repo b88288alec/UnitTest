@@ -40,8 +40,9 @@ public StudentScoreTest {
 4. 若庫存不足，拋出錯誤訊息
 5. 可使用訂單編號查詢以成立的訂單
 
-下圖 Class diagram 可幫助我們了解物件間的關係
-TODO 補圖
+下面的 UML 可幫助我們了解物件間的關係
+
+![orderUML.png](orderUML.png)
 
 ## 外部依賴
 
