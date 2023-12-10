@@ -176,11 +176,11 @@ public class OrderFactoryTest {
 
 其實前面處理依賴的方法有個專有的名稱叫做`Stubs`，而這也只是一個分類的名稱，它的完整概念叫做`Test Double`。<br/>
 Test Double 指的是在測試的過程中所建造出用來替換真實物件的幾種模式。
-- Dummy: 單純用來傳遞的假資料
-- Fake: 一個擁有完整實做的物件，但其實做的內容透過某種捷徑來繞過真實行為，以達到測試的目的，像是 InMemoryTestDatabase
-- Stubs: 提供只會回覆罐頭訊息的物件，像前面用`Mockito.when`
-- Spies: 基本跟 Stubs 相同，但多紀錄一些呼叫資訓，例如某個方法在測試期間被呼叫了幾次，`Mockito.verify`就屬於這個類型
-- Mocks: 跟 Spies 類似，與 Spies 差別在於 Spies 不管執行過程和結果的正確性，但 Mocks 會對其做檢核
+- **Dummy**: 單純用來傳遞的假資料
+- **Fake**: 一個擁有完整實做的物件，但其實做的內容透過某種捷徑來繞過真實行為，以達到測試的目的，像是 InMemoryTestDatabase
+- **Stubs**: 提供只會回覆罐頭訊息的物件，像前面用`Mockito.when`
+- **Spies**: 基本跟 Stubs 相同，但多紀錄一些呼叫資訓，例如某個方法在測試期間被呼叫了幾次，`Mockito.verify`就屬於這個類型
+- **Mocks**: 跟 Spies 類似，與 Spies 差別在於 Spies 不管執行過程和結果的正確性，但 Mocks 會對其做檢核
 
 <seealso>
    <category ref="TestDouble">

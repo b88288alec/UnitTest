@@ -50,6 +50,10 @@ Martin Fowler 對單元測試整理出三點基本定義
 > the use of some sort of unit testing framework. Thirdly unit tests are expected to be significantly faster than other
 > kinds of tests.
 
+## 必要工具
+- Junit
+- Mockito
+- AssertJ
 <seealso>
    <category ref="why">
       <a href="https://martinfowler.com/bliki/UnitTest.html">UnitTest</a>
