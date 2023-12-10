@@ -1,6 +1,6 @@
 # 第一個單元測試
 
-假設我們正在為某間學校開發一個學生成績排名的系統，而計算排名就需要先計算每一位學生所有科目的成績，用以計算總平均，來排名。
+假設我們正在為某間學校開發一個學生成績排名的系統，而計算排名就需要先計算每一位學生所有科目的成績，用以計算總平均，再來來排名。
 
 而我們希望可以透過``StudentScore``類別，來完成計算總平均這件事，就如下面這段程式碼
 
@@ -24,7 +24,7 @@ public StudentScoreTest {
     @Test
     void testAverage() {
         var grades = new StudentScore(74, 62, 92);
-        var average grades.getAverage();
+        var average = grades.getAverage();
         assertThat(average).isEqualTo(76);
     }
 }
