@@ -86,6 +86,7 @@ Mockito.mockStatic(LocalDate.class).when(LocalDate::now).thenReturn(expected);
 而 Command 就是叫某個物件去做點事情，像是呼叫 Dao 把資料存到資料庫，這類的行為通常都不會有回傳值，既然沒回傳值，那怎麼知道程式跑得對不對呢？
 
 在解釋怎麼測試前，先把前面的`OrderFactory`功能補齊，把下新訂單的功能給補上
+
 ```Java
 @RequiredArgsConstructor
 public class OrderFactory {
@@ -114,7 +115,9 @@ public class OrderFactory {
     }
 }
 ```
+
 接著寫測試程式
+
 ```Java
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = RestApplication.class)
@@ -135,7 +138,9 @@ public class OrderFactoryTest {
       Product product = new Product(20);
       Order order = orderFactory.create(product, 10);
       
+      // 驗證真的有存到資料庫
       Mockito.verify(orderRepository, Mockito.times(1)).save(order);
+      // 驗證真的有減少庫存量
       Mockito.verify(stockService, Mockito.times(1)).decrease(product.getProductId(), 10);
    }
    
@@ -147,11 +152,12 @@ public class OrderFactoryTest {
       Product product = new Product(20);
       try {
          Order order = orderFactory.create(product, 10);
+         fail("An error should be thrown");
       } catch (OutOfStockException e) {
+         /* 注意：catch 裡不能放 Exception，因為程式預期會為拋出的錯只有 OutOfStockException，
+         如果拋出了非 OutOfStockException 的例外都屬非預期的行為，應該要讓測試失敗 */
          assertThat(e).hasMessageContaining("out of stock");
       }
-      
-      Mockito.verify(orderRepository, Mockito.never()).save(order);
    }
    
    private void mock_isPossibleOrder(boolean isPossibleOrder) {
@@ -161,6 +167,10 @@ public class OrderFactoryTest {
    
 }
 ```
+
+使用`Mockito.verify`方法，並輸入指定的驗證目標及次數，就可以驗證程式是不是真的有執行某項行為，到此測試就完成了。
+同時還順便多補了當沒有庫存時的情境，其中在執行完`create`後用了`fail`語法，因為我預期這裡應該要拋出錯誤，如果到了`fail`
+這裡程式還能正常跑完，那測試就應該要失敗。
 
 ## Test Double
 
