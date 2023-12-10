@@ -10,4 +10,5 @@
     <toc-element topic="the-first-unit-test.md"/>
     <toc-element topic="how-to-test.md">
     </toc-element>
+    <toc-element topic="next.md"/>
 </instance-profile>
