@@ -29,6 +29,23 @@ class OrderFactoryTest {
   private StockService stockService;
 
   @Test
+  @DisplayName("查詢訂單")
+  void testReconstruction() {
+    // 模擬 findById
+    Long expectId = 10L;
+    this.mock_findById(expectId);
+
+    Order order = orderFactory.reconstruction(expectId);
+    Assertions.assertThat(order.getId()).isEqualTo(expectId);
+  }
+
+  private void mock_findById(Long id) {
+    Mockito.when(
+            orderRepository.findById(Mockito.anyLong()))
+        .thenReturn(new Order(id));
+  }
+
+  @Test
   @DisplayName("下新訂單(有庫存)")
   void createHasStock() {
     this.mock_isPossibleOrder(true);
